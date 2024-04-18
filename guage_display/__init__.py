@@ -13,7 +13,6 @@ class DisplayScreen:
         release_displays()
         init_sequence_hd40015c40 = self.displayByteSequence()
         tft_pins = dict(board.TFT_PINS)
-        tft_pins = dict(board.TFT_PINS)
         tft_timings = self.getTFTTimings()
         board.I2C().deinit()
         i2c = busio.I2C(board.SCL, board.SDA)

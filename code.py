@@ -14,7 +14,7 @@ background,background_pal = adafruit_imageload.load('round-display-ruler-720p.bm
 draw_bitmap = displayio.Bitmap(background.width, background.height, len(background_pal))
 
 # Create a TileGrid to hold the bitmap
-tile_grid = displayio.TileGrid(background, pixel_shader=background_pal)
+tile_grid = displayio.TileGrid(draw_bitmap, pixel_shader=background_pal)
 
 # Center the image
 tile_grid.x -= (background.width - display.width) // 2
@@ -29,9 +29,14 @@ group.append(tile_grid)
 # Add the Group to the Display
 display.root_group = group
 
-display.auto_refresh = True
-
+angle = 0
+center_x = int(background.width/2)
+center_y = int(background.height/2)
 # Loop forever so you can enjoy your image
 while True:
-    time.sleep(1.5)
+    bitmaptools.rotozoom(draw_bitmap, background, angle=angle, ox=center_x, oy=center_x,
+        px=center_x, py=center_y, source_clip0=(0,0), source_clip1=(background.width,background.height))
+
+    display.refresh()
+    angle += 0.5
     pass
